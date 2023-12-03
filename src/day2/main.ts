@@ -8,12 +8,11 @@ const part1 = () => {
     loop1: for (let i = 0; i < input.length; i++) {
         const game = input[i];
         let sets = game.replace(/Game [0-9]*: /g, "").split("; ");
-        console.log("-------------");
 
         for (let set of sets) {
             let result: { [key: string]: number } = {
-                green: 0,
                 red: 0,
+                green: 0,
                 blue: 0,
             };
 
@@ -21,7 +20,7 @@ const part1 = () => {
             for (let color of colors) {
                 let split = color.split(" ");
 
-                result[split[1]] += parseInt(split[0]);
+                result[split[1]] = parseInt(split[0]);
             }
 
             if (result.red > 12 || result.green > 13 || result.blue > 14) {
@@ -42,26 +41,30 @@ const part2 = () => {
         let sets = game.replace(/Game [0-9]*: /g, "").split("; ");
         console.log("-------------");
 
+        let result: { [key: string]: number } = {
+            red: 0,
+            green: 0,
+            blue: 0,
+        };
         for (let set of sets) {
-            let result: { [key: string]: number } = {
-                green: 0,
-                red: 0,
-                blue: 0,
-            };
 
             let colors = set.split(", ");
             for (let color of colors) {
                 let split = color.split(" ");
 
-                result[split[1]] += parseInt(split[0]);
-            }
-
-            if (result.red > 12 || result.green > 13 || result.blue > 14) {
-                continue loop1;
+                let colorName = split[1]
+                let amount = parseInt(split[0])
+                if (amount > result[colorName]) {
+                    result[colorName] = amount    
+                }
             }
         }
-        sum += i + 1;
+        console.log(result);
+        
+        sum += result.red * result.green * result.blue
     }
 
     console.log("Part 2:", sum);
 };
+
+part2()
