@@ -1,4 +1,4 @@
-import { readFile } from "../../helpers";
+import { readFile, printResult } from "../../helpers";
 
 const input = readFile(2);
 
@@ -30,7 +30,7 @@ const part1 = () => {
         sum += i + 1;
     }
 
-    console.log("Part 1:", sum);
+    return sum;
 };
 
 const part2 = () => {
@@ -39,7 +39,6 @@ const part2 = () => {
     loop1: for (let i = 0; i < input.length; i++) {
         const game = input[i];
         let sets = game.replace(/Game [0-9]*: /g, "").split("; ");
-        console.log("-------------");
 
         let result: { [key: string]: number } = {
             red: 0,
@@ -59,12 +58,11 @@ const part2 = () => {
                 }
             }
         }
-        console.log(result);
         
         sum += result.red * result.green * result.blue
     }
 
-    console.log("Part 2:", sum);
+    return sum;
 };
 
-part2()
+printResult(part1, part2)

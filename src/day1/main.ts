@@ -1,4 +1,4 @@
-import { readFile } from "../../helpers";
+import { readFile, printResult } from "../../helpers";
 
 const input = readFile(1);
 
@@ -11,7 +11,7 @@ const part1 = () => {
         }
     });
 
-    console.log("Part 1:", sum);
+    return sum;
 };
 
 const part2 = () => {
@@ -33,7 +33,6 @@ const part2 = () => {
         Object.keys(digits).forEach((key) => {
             entry = entry.replaceAll(key, key + key[key.length - 1]);
         });
-        console.log(entry);
 
         const result = entry.match(
             /[0-9]|zero|one|two|three|four|five|six|seven|eight|nine/g
@@ -48,14 +47,11 @@ const part2 = () => {
             if (Object.keys(digits).includes(last)) {
                 last = digits[last];
             }
-            console.log(result);
-
-            console.log(`${first}${last}`);
 
             sum += parseInt(`${first}${last}`);
         }
     });
-    console.log("Part 2:", sum);
+    return sum;
 };
 
-part2();
+printResult(part1, part2);
