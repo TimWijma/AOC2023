@@ -17,35 +17,25 @@ const part1 = () => {
 const part2 = () => {
     let sum = 0;
 
-    let digits: { [key: string]: string } = {
-        one: "1",
-        two: "2",
-        three: "3",
-        four: "4",
-        five: "5",
-        six: "6",
-        seven: "7",
-        eight: "8",
-        nine: "9",
-    };
+    let digits: string[] = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
     input.forEach((entry) => {
-        Object.keys(digits).forEach((key) => {
-            entry = entry.replaceAll(key, key + key[key.length - 1]);
-        });
+        digits.forEach((digit) => {
+            entry = entry.replaceAll(digit, digit + digit[digit.length - 1])
+        })
 
         const result = entry.match(
-            /[0-9]|zero|one|two|three|four|five|six|seven|eight|nine/g
+            /[0-9]|one|two|three|four|five|six|seven|eight|nine/g
         );
         if (result) {
             let first = result[0];
             let last = result[result.length - 1];
 
-            if (Object.keys(digits).includes(first)) {
-                first = digits[first];
+            if (digits.includes(first)) {
+                first = (digits.indexOf(first)).toString();
             }
-            if (Object.keys(digits).includes(last)) {
-                last = digits[last];
+            if (digits.includes(last)) {
+                last = (digits.indexOf(last)).toString();
             }
 
             sum += parseInt(`${first}${last}`);
