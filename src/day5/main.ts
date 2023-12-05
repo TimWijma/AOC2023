@@ -1,5 +1,16 @@
-import { log } from "console";
 import { readFile, printResult } from "../../helpers";
+
+class Entry {
+    destination: number;
+    source: number;
+    range: number;
+
+    constructor(destination: number, source: number, range: number) {
+        this.destination = destination;
+        this.source = source;
+        this.range = range;
+    }
+}
 
 const input = readFile(5);
 
@@ -8,7 +19,7 @@ const seeds = input[0]
     .split(" ")
     .map((seed) => parseInt(seed));
 
-const maps: number[][][] = [];
+const maps: Entry[][] = [];
 
 for (let i = 2; i < input.length; i++) {
     const row = input[i];
@@ -17,7 +28,8 @@ for (let i = 2; i < input.length; i++) {
     if (row.includes("map")) {
         maps.push([]);
     } else if (row.match(/\d/)) {
-        maps[currentMap - 1].push(row.split(" ").map((n) => parseInt(n)));
+        let split = row.split(" ").map((n) => parseInt(n));
+        maps[currentMap - 1].push(new Entry(split[0], split[1], split[2]));
     }
 }
 
@@ -29,11 +41,12 @@ const part1 = () => {
         let currentNum = seed;
         for (let map of maps) {
             for (let entry of map) {
-                let destination = entry[0];
-                let source = entry[1];
-                let range = entry[2];
-                if (currentNum >= source && currentNum < source + range) {
-                    currentNum = currentNum - (source - destination);
+                if (
+                    currentNum >= entry.source &&
+                    currentNum < entry.source + entry.range
+                ) {
+                    currentNum =
+                        currentNum - (entry.source - entry.destination);
                     break;
                 }
             }
@@ -62,11 +75,12 @@ const part2 = () => {
             let currentNum = i;
             for (let map of maps) {
                 for (let entry of map) {
-                    let destination = entry[0];
-                    let source = entry[1];
-                    let range = entry[2];
-                    if (currentNum >= source && currentNum < source + range) {
-                        currentNum = currentNum - (source - destination);
+                    if (
+                        currentNum >= entry.source &&
+                        currentNum < entry.source + entry.range
+                    ) {
+                        currentNum =
+                            currentNum - (entry.source - entry.destination);
                         break;
                     }
                 }
