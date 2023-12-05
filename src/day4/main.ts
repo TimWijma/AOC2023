@@ -1,6 +1,6 @@
 import { readFile, printResult } from "../../helpers";
 
-const input = readFile(4);
+const input = readFile();
 
 const part1 = () => {
     let sum = 0;
@@ -51,4 +51,4 @@ const numberOfWins = (card: string): number => {
     return wins;
 };
 
-printResult(undefined, part2);
+printResult(part1, part2);

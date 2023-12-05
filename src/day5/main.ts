@@ -12,7 +12,7 @@ class Entry {
     }
 }
 
-const input = readFile(5);
+const input = readFile();
 
 const seeds = input[0]
     .replace("seeds: ", "")

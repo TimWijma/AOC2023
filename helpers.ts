@@ -1,11 +1,13 @@
 import fs from "fs";
+import path from "path";
 
-export const readFile = (day: number): string[] => {
+export const readFile = (): string[] => {
     return fs
         .readFileSync(
-            `/home/main/Documents/Programming/AOC2023/src/day${day}/input.txt`,
+            `./input.txt`,
             "utf-8"
         )
+        .trimEnd()
         .split("\n");
 };
 
@@ -17,6 +19,10 @@ export const printResult = (
         return "Not implemented";
     }
 ) => {
+    console.time("Execution time")
     console.log("Part 1: ", part1());
+    console.timeEnd("Execution time")
+    console.time("Execution time")
     console.log("Part 2: ", part2());
+    console.timeEnd("Execution time")
 };

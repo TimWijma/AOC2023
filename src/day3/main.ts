@@ -1,6 +1,6 @@
 import { readFile, printResult } from "../../helpers";
 
-const input = readFile(3);
+const input = readFile();
 
 const field: string[][] = [];
 input.forEach((line) => {

@@ -1,6 +1,6 @@
 import { readFile, printResult } from "../../helpers";
 
-const input = readFile(2);
+const input = readFile();
 
 const part1 = () => {
     let sum = 0;
@@ -36,7 +36,7 @@ const part1 = () => {
 const part2 = () => {
     let sum = 0;
 
-    loop1: for (let i = 0; i < input.length; i++) {
+    for (let i = 0; i < input.length; i++) {
         const game = input[i];
         let sets = game.replace(/Game [0-9]*: /g, "").split("; ");
 

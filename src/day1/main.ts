@@ -1,6 +1,6 @@
 import { readFile, printResult } from "../../helpers";
 
-const input = readFile(1);
+const input = readFile();
 
 const part1 = () => {
     let sum = 0;
