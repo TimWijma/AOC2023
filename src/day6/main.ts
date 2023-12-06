@@ -22,16 +22,12 @@ const part2 = () => {
 }
 
 const calculateWins = (time: number, distance: number): number => {
-    let wins = 0;
-    for (let j = 0; j <= time; j++) {
-        let result = (time - j) * j;
-        
-        if (result > distance) {
-            wins++;
-        }
+    let i = 0;
+    while ((time - i) * i <= distance) {
+        i++;
     }
     
-    return wins;
+    return time - i * 2 + 1
 }
 
 printResult(part1, part2)
