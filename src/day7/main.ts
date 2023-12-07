@@ -30,7 +30,7 @@ let hands = input.map((h) => {
 });
 
 const part1 = () => {
-    const cards = ["2","3","4","5","6","7","8","9","J","T","Q","K","A"];
+    const cards = ["2","3","4","5","6","7","8","9","T","J", "Q","K","A"];
     return calculateSum(1, cards);
 };
 
@@ -107,13 +107,11 @@ const calculateStrongerCard = (a: Hand, b: Hand, cards: string[]) => {
 };
 
 const calculateSum = (part: number, cards: string[]): number => {
-    let sum = 0;
-
     let newHands: Hand[] = [];
     for (let hand of hands) {
         newHands.push(calculateType(hand, part));
     }
-
+    
     newHands = newHands.sort((a, b) => {
         if (a.type === b.type) {
             return calculateStrongerCard(a, b, cards) === a ? 1 : -1;
@@ -121,6 +119,7 @@ const calculateSum = (part: number, cards: string[]): number => {
         return a.type - b.type;
     });
 
+    let sum = 0;
     for (let i = 0; i < newHands.length; i++) {
         sum += newHands[i].bid * (i + 1);
     }
