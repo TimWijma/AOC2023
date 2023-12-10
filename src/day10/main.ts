@@ -82,8 +82,6 @@ tiles.set(
     )
 );
 
-// let path: Tile[] = []
-
 let path: Map<string, Tile> = new Map();
 
 const part1 = () => {
@@ -97,38 +95,26 @@ const part1 = () => {
         }
     }
 
-    let firstTile = new Tile(-1, -1, "");
-    let lastTile = new Tile(-1, -1, "")
-
-    path.set(`${startingTile.x},${startingTile.y}`, startingTile);
-    let currentTile = calculateNextTile(startingTile, startingTile);
-    firstTile = currentTile;
-    let previousTile = startingTile;
-    while (currentTile.x !== startingTile.x || currentTile.y !== startingTile.y) {
+    let currentTile = startingTile;
+    let previousTile = null;
+    while (currentTile.x !== startingTile.x || currentTile.y !== startingTile.y || previousTile == null) {
         path.set(`${currentTile.x},${currentTile.y}`, currentTile);
 
-        let newTile = calculateNextTile(currentTile, previousTile);
+        let newTile = calculateNextTile(currentTile, previousTile ?? currentTile);
         previousTile = currentTile;
         currentTile = newTile;
-
-        lastTile = previousTile;
     }
 
     path.set(`${startingTile.x},${startingTile.y}`, new Tile(startingTile.x, startingTile.y, "J"));
-
-    // calculateStartingTile(startingTile, firstTile, lastTile);
 
     return path.size / 2;
 };
 
 const part2 = () => {
-    let fakeGrid = structuredClone(grid);
-
     let count = 0;
     for (let y = 0; y < grid.length; y++) {
         for (let x = 0; x < grid[y].length; x++) {
             if (path.has(`${x},${y}`)) continue
-            // if (grid[y][x] !== ".") continue;
 
             let countSides = 0;
             let tempX = x;
@@ -139,30 +125,16 @@ const part2 = () => {
             }
 
             if (countSides % 2 === 1) {
-                fakeGrid[y][x] = "I";
                 count += 1;
-            } else {
-                fakeGrid[y][x] = "O";
             }
         }
-    }
-
-    for (const row of fakeGrid) {
-        let rowString = "";
-        for (const tile of row) {
-            rowString += tile;
-        }
-        console.log(rowString);
     }
 
     return count;
 };
 
 const calculateInLoop = (x: number, y: number): {inLoop: boolean, newX: number} => {
-    if (x === 19 && y === 4) 
-        console.log("")
     if (!path.has(`${x},${y}`)) return {inLoop: false, newX: x - 1};
-
 
     let pathValue = path.get(`${x},${y}`)!.value 
     if (pathValue === "|") {
