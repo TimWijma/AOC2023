@@ -60,30 +60,18 @@ const calculateDistance = (one: number, two: number, expansionRate: number) => {
     let gOne = galaxies.get(one);
     let gTwo = galaxies.get(two);
 
-    let expansionsX = 0;
-    let expansionsY = 0;
+    let expansions = 0;
 
     for (const num of expandX) {
-        if (
-            num >= Math.min(gOne!.x, gTwo!.x) &&
-            num <= Math.max(gOne!.x, gTwo!.x)
-        )
-            expansionsX += expansionRate - 1;
+        if (num >= Math.min(gOne!.x, gTwo!.x) && num <= Math.max(gOne!.x, gTwo!.x))
+            expansions += expansionRate - 1;
     }
     for (const num of expandY) {
-        if (
-            num >= Math.min(gOne!.y, gTwo!.y) &&
-            num <= Math.max(gOne!.y, gTwo!.y)
-        )
-            expansionsY += expansionRate - 1;
+        if (num >= Math.min(gOne!.y, gTwo!.y) && num <= Math.max(gOne!.y, gTwo!.y))
+            expansions += expansionRate - 1;
     }
 
-    return (
-        Math.abs(gOne!.x - gTwo!.x) +
-        expansionsX +
-        Math.abs(gOne!.y - gTwo!.y) +
-        expansionsY
-    );
+    return Math.abs(gOne!.x - gTwo!.x) + Math.abs(gOne!.y - gTwo!.y) + expansions;
 };
 
 printResult(part1, part2);
